@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Movie Quote Game</title>
+
+    <!-- Bootstrap -->
+    <link href="js/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheet.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container"></div>
+    
+    <!-- Backbone templates -->
+    <script type="text/template" id="game_entry_template">
+      <div class="cast-header row">
+        <h1>Movie Quote Trivia Extravaganza</h1>  
+      </div>
+    
+      <div class="game-area"></div>
+    </script>
+
+    <script type="text/template" id="game_result_template">
+      <h1 id="player-name"></h1>  
+      <p id="single-player-stats"></p>
+    </script>
+
+    <script type="text/template" id="player_select_template">
+      <h1>Player</h1>
+      <div class="player-name-form">
+        <label for="player-name">Player Name</label>
+        <input type="text" class="form-control input-lg" id="player-name" placeholder="Enter Your Name!">
+        <button type="button" id="send-player-name" class="btn btn-default btn-lg">Submit</button>
+      </div>
+      <div class="player-button-group hidden">
+        <button type="button" id="single-player" class="btn btn-primary btn-lg selected">Solo Dolo</button>
+        <button type="button" id="multi-player" class="btn btn-primary btn-lg selected">Two Players</button>
+      </div>
+    </script>
+
+     <script type="text/template" id="game_play_template">
+      <h1 class="timer"> </h1>
+      <h1 class="question">Get Ready Game Is About To Start!</h1>
+      <div class="answer buttons">
+        
+        <div class="row top-row">
+          <button type="button" id="answer1" class="btn btn-primary btn-lg col-md-3">Get</button>
+          <button type="button" id="answer2" class="btn btn-primary btn-lg col-md-3 col-md-offset-1">Ready</button>
+        </div>
+
+        <div class="row">
+          <button type="button" id="answer3" class="btn btn-primary btn-lg col-md-3">To</button>
+          <button type="button" id="answer4" class="btn btn-primary btn-lg col-md-3 col-md-offset-1">Start</button>
+        </div>
+        
+        
+      </div>
+    </script>
+      </div>
+    
+
+    </script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/lib/underscore/underscore.js"></script>
+    <script src="js/lib/backbone/backbone.js"></script>
+    <script src="js/lib/backbone.localStorage.js"></script>
+    <script src="js/views/game_board/game_entry_view.js"></script>
+    <script src="js/views/game_board/player_select_view.js"></script>
+    <script src="js/views/game_board/game_play_view.js"></script>
+    <script src="js/views/game_board/multiplayer_view.js"></script>
+    <script src="js/views/game_board/game_result_view.js"></script>
+    <script src="js/views/game_board/cast_service.js"></script>
+    <script src="js/views/game_board/game.js"></script>
+    <script src="js/routers/router.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+    <script src="js/movie.js"></script>
+
+
+
+    
+  </body>
+</html>
