@@ -14,7 +14,6 @@
 
     function GamePlayView() {
       this.timer = __bind(this.timer, this);
-      this.fillEmptySpaces = __bind(this.fillEmptySpaces, this);
       this.onMessage = __bind(this.onMessage, this);
       return GamePlayView.__super__.constructor.apply(this, arguments);
     }
@@ -65,24 +64,33 @@
       this.$("h1.question").html(question);
       $("#" + rightAnswerSpace).html(this.answer);
       this.fillEmptySpaces(_.without(choices, rightAnswerSpace));
-      this.count = 20;
+      this.count = 100;
       this.counter = window.setInterval(this.timer, 1000);
       return this.questionNumber = this.questionNumber + 1;
     };
 
     GamePlayView.prototype.fillEmptySpaces = function(openSlots) {
-      var fakeAnswers;
-      fakeAnswers = [];
-      _.each(this.collection, (function(_this) {
+      this.fakeAnswers = [];
+      this.collection.each((function(_this) {
         return function(model) {
-          return fakeAnswers.push(model.right);
+          return _this.fakeAnswers.push(model.get("right"));
         };
       })(this));
-      return _.each(openSlots, (function(_this) {
+      this.shuffleArray(this.fakeAnswers);
+      return openSlots.forEach((function(_this) {
         return function(slot) {
-          return $("#" + slot).html(fakeAnswers.shift());
+          return $("#" + slot).html(_this.fakeAnswers.shift());
         };
       })(this));
+    };
+
+    GamePlayView.prototype.shuffleArray = function(unshuffled) {
+      var i, j, _i, _ref, _ref1;
+      for (i = _i = _ref = unshuffled.length - 1; _ref <= 1 ? _i <= 1 : _i >= 1; i = _ref <= 1 ? ++_i : --_i) {
+        j = Math.floor(Math.random() * (i + 1));
+        _ref1 = [unshuffled[j], unshuffled[i]], unshuffled[i] = _ref1[0], unshuffled[j] = _ref1[1];
+      }
+      return this.fakeAnswers = unshuffled;
     };
 
     GamePlayView.prototype.changeQuestion = function(e) {

@@ -43,18 +43,28 @@ class Movie.Views.GamePlayView extends Backbone.View
     @$("h1.question").html(question)
     $("##{rightAnswerSpace}").html(@answer)  
     @fillEmptySpaces(_.without(choices,rightAnswerSpace))
-    @count = 20
+    @count = 100
     @counter = window.setInterval(@timer, 1000)
     @questionNumber = @questionNumber + 1
     
 
   fillEmptySpaces:(openSlots) ->
-    fakeAnswers = []
-    @collection.each (model) =>
-      fakeAnswers.push(model.right)
+    @fakeAnswers = []
 
-    openSlots.each (slot) =>
-      $("##{slot}").html(fakeAnswers.shift())
+    @collection.each (model) =>
+      @fakeAnswers.push(model.get("right"))
+
+    @shuffleArray(@fakeAnswers)
+
+    openSlots.forEach (slot) =>
+      $("##{slot}").html(@fakeAnswers.shift())
+
+  shuffleArray:(unshuffled) ->
+    for i in [unshuffled.length-1..1]
+      j = Math.floor Math.random() * (i + 1)
+      [unshuffled[i], unshuffled[j]] = [unshuffled[j], unshuffled[i]]
+    @fakeAnswers = unshuffled
+
 
 
   #TODO clean up these methods
