@@ -33,8 +33,8 @@ class Movie.Views.GamePlayView extends Backbone.View
 
 
   startCounter: ->
-    choices = ["answer1","answer2","answer3","answer4"]
-    rightAnswerSpace = choices[Math.floor(Math.random()*choices.length)]
+    @choices = ["answer1","answer2","answer3","answer4"]
+    rightAnswerSpace = @choices[Math.floor(Math.random()*@choices.length)]
     @modelss = @collection.where({consumed:false})
     currentModel = @modelss[Math.floor(Math.random()*@modelss.length)]
     question = currentModel.get("quote")
@@ -42,7 +42,7 @@ class Movie.Views.GamePlayView extends Backbone.View
     currentModel.set("consumed":true)
     @$("h1.question").html(question)
     $("##{rightAnswerSpace}").html(@answer)  
-    @fillEmptySpaces(_.without(choices,rightAnswerSpace))
+    @fillEmptySpaces(_.without(@choices,rightAnswerSpace))
     @count = 100
     @counter = window.setInterval(@timer, 1000)
     @questionNumber = @questionNumber + 1
@@ -55,9 +55,20 @@ class Movie.Views.GamePlayView extends Backbone.View
       @fakeAnswers.push(model.get("right"))
 
     @shuffleArray(@fakeAnswers)
+    @fillSlots(openSlots)
 
-    openSlots.forEach (slot) =>
-      $("##{slot}").html(@fakeAnswers.shift())
+  fillSlots:(slotArray) ->
+    slotArray.forEach (slot) =>
+      unless @checkIfAnswerUsed(@fakeAnswers[0])
+        $("##{slot}").html(@fakeAnswers.shift()) 
+        slotArray = _.without(slotArray, slot)
+      else
+        @fakeAnswers.shift()
+        @fillSlots(slotArray)
+
+  checkIfAnswerUsed:(possibleAnswer) ->
+    for slot in @choices
+      return true if $("##{slot}").html() == possibleAnswer  
 
   shuffleArray:(unshuffled) ->
     for i in [unshuffled.length-1..1]

@@ -49,9 +49,9 @@
     };
 
     GamePlayView.prototype.startCounter = function() {
-      var choices, currentModel, question, rightAnswerSpace;
-      choices = ["answer1", "answer2", "answer3", "answer4"];
-      rightAnswerSpace = choices[Math.floor(Math.random() * choices.length)];
+      var currentModel, question, rightAnswerSpace;
+      this.choices = ["answer1", "answer2", "answer3", "answer4"];
+      rightAnswerSpace = this.choices[Math.floor(Math.random() * this.choices.length)];
       this.modelss = this.collection.where({
         consumed: false
       });
@@ -63,7 +63,7 @@
       });
       this.$("h1.question").html(question);
       $("#" + rightAnswerSpace).html(this.answer);
-      this.fillEmptySpaces(_.without(choices, rightAnswerSpace));
+      this.fillEmptySpaces(_.without(this.choices, rightAnswerSpace));
       this.count = 100;
       this.counter = window.setInterval(this.timer, 1000);
       return this.questionNumber = this.questionNumber + 1;
@@ -77,11 +77,32 @@
         };
       })(this));
       this.shuffleArray(this.fakeAnswers);
-      return openSlots.forEach((function(_this) {
+      return this.fillSlots(openSlots);
+    };
+
+    GamePlayView.prototype.fillSlots = function(slotArray) {
+      return slotArray.forEach((function(_this) {
         return function(slot) {
-          return $("#" + slot).html(_this.fakeAnswers.shift());
+          if (!_this.checkIfAnswerUsed(_this.fakeAnswers[0])) {
+            $("#" + slot).html(_this.fakeAnswers.shift());
+            return slotArray = _.without(slotArray, slot);
+          } else {
+            _this.fakeAnswers.shift();
+            return _this.fillSlots(slotArray);
+          }
         };
       })(this));
+    };
+
+    GamePlayView.prototype.checkIfAnswerUsed = function(possibleAnswer) {
+      var slot, _i, _len, _ref;
+      _ref = this.choices;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        slot = _ref[_i];
+        if ($("#" + slot).html() === possibleAnswer) {
+          return true;
+        }
+      }
     };
 
     GamePlayView.prototype.shuffleArray = function(unshuffled) {
