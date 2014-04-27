@@ -19,8 +19,9 @@
     }
 
     CastService.prototype.sendMessage = function(message) {
-      this.session = window.sessionID;
-      return this.session.sendMessage('urn:x-cast:movie.quote.game', message, this.messageSuccess, this.messageError);
+      var session;
+      session = window.sessionID;
+      return session.sendMessage('urn:x-cast:movie.quote.game', message, this.messageSuccess, this.messageError);
     };
 
     CastService.prototype.messageSuccess = function(e) {

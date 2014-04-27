@@ -35,7 +35,12 @@
       return this.render();
     };
 
-    GameResultView.prototype.multiPlayerResults = function() {};
+    GameResultView.prototype.multiPlayerResults = function() {
+      this.$el.html(this.template());
+      this.$('#player-name').html(this.attributes.playerName);
+      this.$('#single-player-stats').html("You got " + this.attributes.correctAnswers + " out of " + this.attributes.totalQuestions + " questions right!");
+      return this.render();
+    };
 
     GameResultView.prototype.render = function() {
       return this;

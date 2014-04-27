@@ -8,8 +8,8 @@ class Movie.Services.CastService extends Backbone.View # TODO should this be a v
 
 
   sendMessage:(message) ->
-    @session = window.sessionID
-    @session.sendMessage('urn:x-cast:movie.quote.game', message, @messageSuccess, @messageError)
+    session = window.sessionID
+    session.sendMessage('urn:x-cast:movie.quote.game', message, @messageSuccess, @messageError)
 
   messageSuccess:(e) =>
     console.log e

@@ -24,7 +24,10 @@ class Movie.Views.GameResultView extends Backbone.View
     @render()
 
   multiPlayerResults: ->
-
+    @$el.html @template()
+    @$('#player-name').html(@attributes.playerName)
+    @$('#single-player-stats').html("You got #{@attributes.correctAnswers} out of #{@attributes.totalQuestions} questions right!")
+    @render()
 
   render: ->
     @

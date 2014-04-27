@@ -22,14 +22,30 @@ class Movie.Views.GamePlayView extends Backbone.View
 
 
 
-  onMessage:(e) =>
-    message = e
-    if message
+  onMessage:(nameSpace, msg) =>
+    message = msg
+    if message == "start"
       @startTrivia()
+    if message == "round one"
+      @playRoundOneFight()
+
+  # playRoundOneFight: ->
+  #   mediaInfo = new chrome.cast.media.MediaInfo("media/round_one_fight.mp3");
+  #   request = new chrome.cast.media.LoadRequest(mediaInfo);
+  #   @session.loadMedia(request, @onMediaDiscovered, @onMediaError);
 
 
-  startTrivia: ->
-    @startCounter()
+  # onMediaDiscovered:(how, media) =>
+  #   console.log "playing media"
+  #   currentMedia = media
+  #   currentMedia.play(null, success, error)
+
+  # onMediaError:() ->
+  #   console.log "not playing sound"
+
+
+  # startTrivia: ->
+  #   @startCounter()
 
 
   startCounter: ->
@@ -43,8 +59,8 @@ class Movie.Views.GamePlayView extends Backbone.View
     @$("h1.question").html(question)
     $("##{rightAnswerSpace}").html(@answer)  
     @fillEmptySpaces(_.without(@choices,rightAnswerSpace))
-    @count = 100
-    @counter = window.setInterval(@timer, 1000)
+    @count = 25
+    @counter = setInterval(@timer, 1000)
     @questionNumber = @questionNumber + 1
     
 
@@ -107,7 +123,7 @@ class Movie.Views.GamePlayView extends Backbone.View
     @count = @count - 1
     @$('h1.timer').html("<h1>#{@count} seconds left!</h1>")
     if @count <= 0
-      window.clearInterval(@counter)
+      clearInterval(@counter)
       @counter = 0
       @$('button').slideUp()
       @$("h1.question").slideUp()

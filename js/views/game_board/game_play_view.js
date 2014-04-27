@@ -36,16 +36,15 @@
       return this.render();
     };
 
-    GamePlayView.prototype.onMessage = function(e) {
+    GamePlayView.prototype.onMessage = function(nameSpace, msg) {
       var message;
-      message = e;
-      if (message) {
-        return this.startTrivia();
+      message = msg;
+      if (message === "start") {
+        this.startTrivia();
       }
-    };
-
-    GamePlayView.prototype.startTrivia = function() {
-      return this.startCounter();
+      if (message === "round one") {
+        return this.playRoundOneFight();
+      }
     };
 
     GamePlayView.prototype.startCounter = function() {
@@ -64,8 +63,8 @@
       this.$("h1.question").html(question);
       $("#" + rightAnswerSpace).html(this.answer);
       this.fillEmptySpaces(_.without(this.choices, rightAnswerSpace));
-      this.count = 100;
-      this.counter = window.setInterval(this.timer, 1000);
+      this.count = 25;
+      this.counter = setInterval(this.timer, 1000);
       return this.questionNumber = this.questionNumber + 1;
     };
 
@@ -149,7 +148,7 @@
       this.count = this.count - 1;
       this.$('h1.timer').html("<h1>" + this.count + " seconds left!</h1>");
       if (this.count <= 0) {
-        window.clearInterval(this.counter);
+        clearInterval(this.counter);
         this.counter = 0;
         this.$('button').slideUp();
         this.$("h1.question").slideUp();
