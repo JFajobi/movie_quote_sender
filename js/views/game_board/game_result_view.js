@@ -24,8 +24,15 @@
         this.singlePlayerStats();
       }
       if (this.attributes.players === "multiplayer") {
-        return this.multiPlayerResults();
+        this.multiPlayerResults();
+        return this.sendResults();
       }
+    };
+
+    GameResultView.prototype.sendResults = function() {
+      return window.CastService.sendMessage({
+        results: this.attributes.correctAnswers
+      });
     };
 
     GameResultView.prototype.singlePlayerStats = function() {

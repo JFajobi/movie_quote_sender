@@ -36,7 +36,7 @@ class Movie.Views.PlayerSelectView extends Backbone.View
     
   sendPlayerName:(e) ->
     @playerName = @$('input').val()
-    window.CastService.sendMessage({setPlayerName: @playerName })
+    window.CastService.sendMessage({setPlayerInfo: @playerName })
     @$(".player-name-form").addClass("hidden")
     @$(".player-button-group").removeClass("hidden")
 

@@ -13,9 +13,13 @@ class Movie.Views.GameResultView extends Backbone.View
 
   initialize: ->
     @singlePlayerStats() if @attributes.players == "single"
-    @multiPlayerResults() if @attributes.players == "multiplayer"
+    if @attributes.players == "multiplayer"
+      @multiPlayerResults()
+      @sendResults() 
 
 
+  sendResults: ->
+    window.CastService.sendMessage({results: @attributes.correctAnswers})
 
   singlePlayerStats: ->
     @$el.html @template()

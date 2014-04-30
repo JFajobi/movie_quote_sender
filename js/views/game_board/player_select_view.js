@@ -60,7 +60,7 @@
     PlayerSelectView.prototype.sendPlayerName = function(e) {
       this.playerName = this.$('input').val();
       window.CastService.sendMessage({
-        setPlayerName: this.playerName
+        setPlayerInfo: this.playerName
       });
       this.$(".player-name-form").addClass("hidden");
       return this.$(".player-button-group").removeClass("hidden");
