@@ -26,8 +26,8 @@ class Movie.Views.GamePlayView extends Backbone.View
     message = msg
     if message == "start"
       @startTrivia()
-    if message == "round one"
-      @playRoundOneFight()
+    # if message == "round one"
+    #   @playRoundOneFight()
 
   # playRoundOneFight: ->
   #   mediaInfo = new chrome.cast.media.MediaInfo("media/round_one_fight.mp3");
@@ -44,8 +44,8 @@ class Movie.Views.GamePlayView extends Backbone.View
   #   console.log "not playing sound"
 
 
-  # startTrivia: ->
-  #   @startCounter()
+  startTrivia: ->
+    @startCounter()
 
 
   startCounter: ->
@@ -94,7 +94,7 @@ class Movie.Views.GamePlayView extends Backbone.View
 
 
 
-  #TODO clean up these methods
+  #TODO clean up these functions
   changeQuestion:(e) ->
     @checkAnswer(e.currentTarget.innerHTML)
     choices = ["answer1","answer2","answer3","answer4"]

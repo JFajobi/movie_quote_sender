@@ -40,11 +40,12 @@
       var message;
       message = msg;
       if (message === "start") {
-        this.startTrivia();
+        return this.startTrivia();
       }
-      if (message === "round one") {
-        return this.playRoundOneFight();
-      }
+    };
+
+    GamePlayView.prototype.startTrivia = function() {
+      return this.startCounter();
     };
 
     GamePlayView.prototype.startCounter = function() {
